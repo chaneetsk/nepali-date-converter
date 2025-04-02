@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nepali Date Converter',
     description: 'Convert dates between Nepali (BS) and English (AD) calendars',
-    url: 'https://nepalidateconverter.com',
+    url: 'https://www.nepalidateconverter.net',
     siteName: 'Nepali Date Converter',
     locale: 'en_US',
     type: 'website',
