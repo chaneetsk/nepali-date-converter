@@ -34,8 +34,8 @@ export default function NepaliDateConverter() {
     // if (isNaN(yearNum)) {
     //   return 'Year must be a number';
     // }
-    if (yearNum < 1900 || yearNum > 2100) {
-      return 'Year must be between 1900 and 2100';
+    if (yearNum < 2000 || yearNum > 2090) {
+      return 'Year must be between 2000 and 2090';
     }
     return undefined;
   };
