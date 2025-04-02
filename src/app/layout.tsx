@@ -14,7 +14,30 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Nepali Date Converter',
-  description: 'Convert between Nepali and English dates easily',
+  description: 'Convert dates between Nepali (BS) and English (AD) calendars. Free Nepali date converter tool.',
+  keywords: ['nepali date converter', 'BS to AD', 'AD to BS', 'nepali calendar', 'bikram sambat', 'date converter'],
+  authors: [{ name: 'Nepali Date Converter' }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  openGraph: {
+    title: 'Nepali Date Converter',
+    description: 'Convert dates between Nepali (BS) and English (AD) calendars',
+    url: 'https://nepalidateconverter.com',
+    siteName: 'Nepali Date Converter',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nepali Date Converter',
+    description: 'Convert dates between Nepali (BS) and English (AD) calendars',
+  },
 };
 
 export default function RootLayout({
