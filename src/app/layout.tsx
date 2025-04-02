@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import Header from '@/components/Header';
 
 import './globals.css';
 
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" className={`motion-safe:scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <body className={`tracking-tight antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Header />
           {children}
         </ThemeProvider>
       </body>
