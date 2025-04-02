@@ -8,7 +8,7 @@ export default function Home() {
   const [conversionType, setConversionType] = useState<'nepali-to-english' | 'english-to-nepali'>('nepali-to-english');
 
   return (
-    <main className="flex-1 p-4 md:p-8 flex flex-col items-center">
+    <main className="flex-1 p-4 md:p-8 flex flex-col items-center mt-10 md:mt-14">
       <div className="w-full max-w-3xl text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-[#8B5CF6] mb-4">Nepali Date Converter</h1>
         <p className="text-gray-600 dark:text-gray-400 text-lg">
