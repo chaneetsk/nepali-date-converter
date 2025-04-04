@@ -13,7 +13,7 @@ interface ValidationErrors {
   day?: string;
 }
 
-export default function NepaliDateConverter() {
+export default function DateConverter() {
   const [nepaliYear, setNepaliYear] = useState('');
   const [nepaliMonth, setNepaliMonth] = useState('');
   const [nepaliDay, setNepaliDay] = useState('');

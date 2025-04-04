@@ -15,7 +15,8 @@ export function convertBSToAD(year: string, month: string, date: string) {
         year: jsDate.getFullYear(),
         month: jsDate.getMonth() + 1, // Convert 0-based month to 1-based
         date: jsDate.getDate(),
-        formatted: jsDate.toLocaleDateString('en-US', {
+        formatted: jsDate.toLocaleDateString('en-AU', {
+          weekday: 'long',
           year: 'numeric',
           month: 'long',
           day: 'numeric',

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import NepaliDateConverter from '@/components/NepaliDateConverter';
+import DateConverter from '@/components/DateConverter';
 import ConversionTypeTabs from '@/components/ConversionTypeTabs';
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
           </p>
 
           {conversionType === 'nepali-to-english' ? (
-            <NepaliDateConverter />
+            <DateConverter />
           ) : (
             // TODO: Add English to Nepali conversion form
             <div></div>
