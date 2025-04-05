@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { HistoryContextProvider } from '@/context/HistoryContext';
 
 import './globals.css';
 
@@ -49,11 +50,13 @@ export default function RootLayout({
     <html lang="en" className={`motion-safe:scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <body className={`tracking-tight antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="min-h-screen flex flex-col">
-            <Header />
-            {children}
-            <Footer />
-          </div>
+          <HistoryContextProvider>
+            <div className="min-h-screen flex flex-col">
+              <Header />
+              {children}
+              <Footer />
+            </div>
+          </HistoryContextProvider>
         </ThemeProvider>
       </body>
     </html>

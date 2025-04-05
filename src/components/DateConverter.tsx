@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { nepaliMonths, convertBSToAD, getCurrentNepaliDate } from '@/utils/dateConverter';
+import { useHistory } from '@/context/HistoryContext';
 
 interface ConversionResult {
   year: number;
   month: number;
   date: number;
   formatted: string;
+  formattedForHistory: string;
 }
 
 interface ValidationErrors {
@@ -13,13 +15,18 @@ interface ValidationErrors {
   day?: string;
 }
 
-export default function DateConverter() {
+interface DateConverterProps {
+  conversionType: 'nepali-to-english' | 'english-to-nepali';
+}
+
+export default function DateConverter({ conversionType }: DateConverterProps) {
   const [nepaliYear, setNepaliYear] = useState('');
   const [nepaliMonth, setNepaliMonth] = useState('');
   const [nepaliDay, setNepaliDay] = useState('');
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const { addToHistory } = useHistory();
 
   // Set current Nepali date on component mount
   useEffect(() => {
@@ -31,9 +38,6 @@ export default function DateConverter() {
 
   const validateYear = (year: string): string | undefined => {
     const yearNum = parseInt(year);
-    // if (isNaN(yearNum)) {
-    //   return 'Year must be a number';
-    // }
     if (yearNum < 2000 || yearNum > 2090) {
       return 'Year must be between 2000 and 2090';
     }
@@ -42,9 +46,6 @@ export default function DateConverter() {
 
   const validateDay = (day: string): string | undefined => {
     const dayNum = parseInt(day);
-    // if (isNaN(dayNum)) {
-    //   return 'Day must be a number';
-    // }
     if (dayNum < 1 || dayNum > 32) {
       return 'Day must be between 1 and 32';
     }
@@ -81,6 +82,11 @@ export default function DateConverter() {
       setResult(conversion.result as ConversionResult);
       setError(null);
       setValidationErrors({});
+      addToHistory(
+        `${nepaliYear}-${nepaliMonth}-${nepaliDay}`,
+        `${conversion.result.formattedForHistory}`,
+        conversionType,
+      );
     } else {
       setResult(null);
       setError(conversion.error || 'Conversion failed');

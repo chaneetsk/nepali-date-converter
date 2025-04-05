@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import DateConverter from '@/components/DateConverter';
 import ConversionTypeTabs from '@/components/ConversionTypeTabs';
+import ConversionHistory from '@/components/ConversionHistory';
 
 export default function Home() {
   const [conversionType, setConversionType] = useState<'nepali-to-english' | 'english-to-nepali'>('nepali-to-english');
@@ -22,25 +23,20 @@ export default function Home() {
 
       <div className="w-full max-w-3xl">
         <div className="glass-card p-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <h2 className="hidden md:block text-xl font-semibold text-gray-900 dark:text-white mb-2">
             {conversionType === 'nepali-to-english'
               ? 'Nepali to English Date Converter'
               : 'English to Nepali Date Converter'}
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">
+          <p className="hidden md:block text-gray-600 dark:text-gray-400 mb-8">
             {conversionType === 'nepali-to-english'
               ? 'Convert Nepali calendar (BS) dates to English calendar (AD) dates'
               : 'Convert English calendar (AD) dates to Nepali calendar (BS) dates'}
           </p>
-
-          {conversionType === 'nepali-to-english' ? (
-            <DateConverter />
-          ) : (
-            // TODO: Add English to Nepali conversion form
-            <div></div>
-          )}
+          {conversionType === 'nepali-to-english' ? <DateConverter conversionType={conversionType} /> : <div></div>}
         </div>
       </div>
+      <ConversionHistory />
     </main>
   );
 }
