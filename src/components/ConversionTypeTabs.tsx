@@ -18,14 +18,13 @@ export default function ConversionTypeTabs({ conversionType, onConversionTypeCha
       </button>
       <button
         onClick={() => onConversionTypeChange('english-to-nepali')}
-        disabled
-        className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all cursor-not-allowed opacity-50 ${
+        className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
           conversionType === 'english-to-nepali'
             ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow'
-            : 'text-gray-600 dark:text-gray-400'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
         }`}
       >
-        English → Nepali (Coming Soon)
+        English → Nepali
       </button>
     </div>
   );

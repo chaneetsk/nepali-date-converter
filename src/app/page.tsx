@@ -33,7 +33,7 @@ export default function Home() {
               ? 'Convert Nepali calendar (BS) dates to English calendar (AD) dates'
               : 'Convert English calendar (AD) dates to Nepali calendar (BS) dates'}
           </p>
-          {conversionType === 'nepali-to-english' ? <DateConverter conversionType={conversionType} /> : <div></div>}
+          <DateConverter conversionType={conversionType} />
         </div>
       </div>
       <ConversionHistory />
