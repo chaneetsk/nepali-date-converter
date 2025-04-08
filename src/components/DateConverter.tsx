@@ -1,180 +1,48 @@
-import { useState, useEffect } from 'react';
-import { nepaliMonths, convertBSToAD, getCurrentNepaliDate } from '@/utils/dateConverter';
-import { useHistory } from '@/context/HistoryContext';
+'use client';
 
-interface ConversionResult {
+import { useState } from 'react';
+import EnglishToNepaliDateConverter from './EnglishToNepaliDateConverter';
+import NepaliToEnglishDateConverter from './NepaliToEnglishDateConverter';
+import ConversionTypeTabs from './ConversionTypeTabs';
+
+export interface ConversionResult {
   year: number;
-  month: number;
+  month: number | string;
   date: number;
   formatted: string;
   formattedForHistory: string;
 }
 
-interface ValidationErrors {
+export interface ValidationErrors {
   year?: string;
   day?: string;
 }
 
-interface DateConverterProps {
-  conversionType: 'nepali-to-english' | 'english-to-nepali';
-}
-
-export default function DateConverter({ conversionType }: DateConverterProps) {
-  const [nepaliYear, setNepaliYear] = useState('');
-  const [nepaliMonth, setNepaliMonth] = useState('');
-  const [nepaliDay, setNepaliDay] = useState('');
-  const [result, setResult] = useState<ConversionResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
-  const { addToHistory } = useHistory();
-
-  // Set current Nepali date on component mount
-  useEffect(() => {
-    const currentDate = getCurrentNepaliDate();
-    setNepaliYear(currentDate.year);
-    setNepaliMonth(currentDate.month);
-    setNepaliDay(currentDate.date);
-  }, []);
-
-  const validateYear = (year: string): string | undefined => {
-    const yearNum = parseInt(year);
-    if (yearNum < 2000 || yearNum > 2090) {
-      return 'Year must be between 2000 and 2090';
-    }
-    return undefined;
-  };
-
-  const validateDay = (day: string): string | undefined => {
-    const dayNum = parseInt(day);
-    if (dayNum < 1 || dayNum > 32) {
-      return 'Day must be between 1 and 32';
-    }
-    return undefined;
-  };
-
-  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNepaliYear(value);
-    const yearError = validateYear(value);
-    setValidationErrors((prev) => ({ ...prev, year: yearError }));
-  };
-
-  const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNepaliDay(value);
-    const dayError = validateDay(value);
-    setValidationErrors((prev) => ({ ...prev, day: dayError }));
-  };
-
-  const handleConversion = () => {
-    // Validate all fields before conversion
-    const yearError = validateYear(nepaliYear);
-    const dayError = validateDay(nepaliDay);
-
-    if (yearError || dayError) {
-      setValidationErrors({ year: yearError, day: dayError });
-      return;
-    }
-
-    const conversion = convertBSToAD(nepaliYear, nepaliMonth, nepaliDay);
-
-    if (conversion.success && conversion.result) {
-      setResult(conversion.result as ConversionResult);
-      setError(null);
-      setValidationErrors({});
-      addToHistory(
-        `${nepaliYear}-${nepaliMonth}-${nepaliDay}`,
-        `${conversion.result.formattedForHistory}`,
-        conversionType,
-      );
-    } else {
-      setResult(null);
-      setError(conversion.error || 'Conversion failed');
-    }
-  };
+export default function DateConverter() {
+  const [conversionType, setConversionType] = useState<'nepali-to-english' | 'english-to-nepali'>('nepali-to-english');
 
   return (
-    <div className="space-y-6">
-      {conversionType === 'nepali-to-english' && (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Year (BS)</label>
-              <input
-                type="number"
-                min="1900"
-                max="2100"
-                value={nepaliYear}
-                onChange={handleYearChange}
-                className={`w-full px-4 py-2 rounded-lg border ${
-                  validationErrors.year ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
-              />
-              {validationErrors.year && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.year}</p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Month</label>
-              <select
-                value={nepaliMonth}
-                onChange={(e) => setNepaliMonth(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              >
-                <option value="" className="text-gray-500 dark:text-gray-400">
-                  Select Month
-                </option>
-                {nepaliMonths.map((month) => (
-                  <option key={month} value={month} className="text-gray-900 dark:text-white">
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Day</label>
-              <input
-                type="number"
-                min="1"
-                max="32"
-                value={nepaliDay}
-                onChange={handleDayChange}
-                className={`w-full px-4 py-2 rounded-lg border ${
-                  validationErrors.day ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
-              />
-              {validationErrors.day && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.day}</p>
-              )}
-            </div>
-          </div>
+    <>
+      <div className="mb-8">
+        <ConversionTypeTabs conversionType={conversionType} onConversionTypeChange={setConversionType} />
+      </div>
 
-          <button
-            onClick={handleConversion}
-            disabled={!!validationErrors.year || !!validationErrors.day}
-            className={`w-full py-3 rounded-lg font-medium transition-colors ${
-              validationErrors.year || validationErrors.day
-                ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
-                : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white'
-            }`}
-          >
-            Convert to English Date
-          </button>
+      <div>
+        <h2 className="hidden md:block text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          {conversionType === 'nepali-to-english'
+            ? 'Nepali to English Date Converter'
+            : 'English to Nepali Date Converter'}
+        </h2>
+        <p className="hidden md:block text-gray-600 dark:text-gray-400 mb-8">
+          {conversionType === 'nepali-to-english'
+            ? 'Convert Nepali calendar (BS) dates to English calendar (AD) dates'
+            : 'Convert English calendar (AD) dates to Nepali calendar (BS) dates'}
+        </p>
+      </div>
 
-          {error && (
-            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400">
-              {error}
-            </div>
-          )}
-
-          {result && (
-            <div className="p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
-              <h3 className="text-lg font-medium text-purple-900 dark:text-purple-100 mb-1">Converted Date</h3>
-              <p className="text-purple-800 dark:text-purple-200">{result.formatted}</p>
-            </div>
-          )}
-        </>
-      )}
-    </div>
+      <div className="space-y-6">
+        {conversionType === 'nepali-to-english' ? <NepaliToEnglishDateConverter /> : <EnglishToNepaliDateConverter />}
+      </div>
+    </>
   );
 }

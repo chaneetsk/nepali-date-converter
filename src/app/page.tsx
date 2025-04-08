@@ -1,13 +1,7 @@
-'use client';
-
-import { useState } from 'react';
 import DateConverter from '@/components/DateConverter';
-import ConversionTypeTabs from '@/components/ConversionTypeTabs';
 import ConversionHistory from '@/components/ConversionHistory';
 
 export default function Home() {
-  const [conversionType, setConversionType] = useState<'nepali-to-english' | 'english-to-nepali'>('nepali-to-english');
-
   return (
     <main className="flex-1 p-4 md:p-8 flex flex-col items-center mt-10 md:mt-14">
       <div className="w-full max-w-3xl text-center mb-12">
@@ -17,23 +11,9 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="w-full max-w-3xl mb-8">
-        <ConversionTypeTabs conversionType={conversionType} onConversionTypeChange={setConversionType} />
-      </div>
-
       <div className="w-full max-w-3xl">
         <div className="glass-card p-8">
-          <h2 className="hidden md:block text-xl font-semibold text-gray-900 dark:text-white mb-2">
-            {conversionType === 'nepali-to-english'
-              ? 'Nepali to English Date Converter'
-              : 'English to Nepali Date Converter'}
-          </h2>
-          <p className="hidden md:block text-gray-600 dark:text-gray-400 mb-8">
-            {conversionType === 'nepali-to-english'
-              ? 'Convert Nepali calendar (BS) dates to English calendar (AD) dates'
-              : 'Convert English calendar (AD) dates to Nepali calendar (BS) dates'}
-          </p>
-          <DateConverter conversionType={conversionType} />
+          <DateConverter />
         </div>
       </div>
       <ConversionHistory />

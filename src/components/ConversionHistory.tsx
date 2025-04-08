@@ -1,3 +1,5 @@
+'use client';
+
 import { useHistory } from '@/context/HistoryContext';
 import { CopyIcon } from '@radix-ui/react-icons';
 

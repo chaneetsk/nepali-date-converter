@@ -48,6 +48,7 @@ export function convertADToBS(date: Date) {
         month: nepaliMonths[month], // Convert month index to month name
         date: day,
         formatted: nepaliDate.format('DD MMMM YYYY'),
+        formattedForHistory: nepaliDate.format('DD/MM/YYYY'),
       },
     };
   } catch {
@@ -73,6 +74,24 @@ export const nepaliMonths = [
   'Falgun',
   'Chaitra',
 ];
+
+// Nepali months in English
+export const englishMonths = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+export const shortEnglishMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Get current Nepali date
 export function getCurrentNepaliDate() {
