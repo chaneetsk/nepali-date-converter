@@ -91,29 +91,47 @@ export default function EnglishToNepaliDateConverter() {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <form
+      role="form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleEnglishToNepaliConversion();
+      }}
+      aria-label="English to Nepali Date Converter"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Day</label>
+          <label htmlFor="day" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Day
+          </label>
           <input
+            id="day"
             type="number"
             min="1"
             max="31"
             value={englishDay}
             onChange={handleDayChange}
+            aria-invalid={!!validationErrors.day}
+            aria-describedby={validationErrors.day ? 'day-error' : undefined}
             className={`w-full px-4 py-2 rounded-lg border ${
               validationErrors.day ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
           />
           {validationErrors.day && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.day}</p>
+            <p id="day-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
+              {validationErrors.day}
+            </p>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Month</label>
+          <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Month
+          </label>
           <select
+            id="month"
             value={englishMonth}
             onChange={(e) => setEnglishMonth(e.target.value)}
+            aria-label="Select month"
             className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           >
             <option value="">Select Month</option>
@@ -125,25 +143,33 @@ export default function EnglishToNepaliDateConverter() {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Year (AD)</label>
+          <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Year (AD)
+          </label>
           <input
+            id="year"
             type="number"
             value={englishYear}
             onChange={handleYearChange}
+            aria-invalid={!!validationErrors.year}
+            aria-describedby={validationErrors.year ? 'year-error' : undefined}
             className={`w-full px-4 py-2 rounded-lg border ${
               validationErrors.year ? 'border-red-500 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
             } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
           />
           {validationErrors.year && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.year}</p>
+            <p id="year-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
+              {validationErrors.year}
+            </p>
           )}
         </div>
       </div>
 
       <button
-        onClick={handleEnglishToNepaliConversion}
+        type="submit"
         disabled={!!validationErrors.year || !!validationErrors.day}
-        className={`w-full py-3 rounded-lg font-medium transition-colors ${
+        aria-label="Convert to Nepali Date"
+        className={`w-full py-3 rounded-lg font-medium transition-colors mb-6 ${
           validationErrors.year || validationErrors.day
             ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed'
             : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white'
@@ -153,17 +179,25 @@ export default function EnglishToNepaliDateConverter() {
       </button>
 
       {error && (
-        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400">
+        <div
+          role="alert"
+          aria-live="polite"
+          className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400"
+        >
           {error}
         </div>
       )}
 
       {result && (
-        <div className="p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+        <div
+          role="status"
+          aria-live="polite"
+          className="p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg"
+        >
           <h3 className="text-lg font-medium text-purple-900 dark:text-purple-100 mb-1">Converted Date</h3>
           <p className="text-purple-800 dark:text-purple-200">{result.formatted}</p>
         </div>
       )}
-    </>
+    </form>
   );
 }
