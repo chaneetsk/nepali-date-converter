@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Nepali Date Converter',
+  title: 'Nepali Date Converter - Convert BS to AD',
   description: 'Convert dates between Nepali (BS) and English (AD) calendars. Free Nepali date converter tool.',
   keywords: ['nepali date converter', 'BS to AD', 'AD to BS', 'nepali calendar', 'bikram sambat', 'date converter'],
   authors: [{ name: 'Nepali Date Converter' }],
