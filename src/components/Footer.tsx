@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="w-full py-6 mt-auto">
@@ -6,12 +8,20 @@ export default function Footer() {
           <p className="text-gray-600 dark:text-gray-400 text-sm">
             © {new Date().getFullYear()} NepaliDateConverter.net
           </p>
-          <a
-            href="mailto:hello@nepalidateconverter.net"
-            className="text-gray-600 dark:text-gray-400 text-sm hover:text-[#8B5CF6] dark:hover:text-[#8B5CF6] transition-colors"
-          >
-            hello@nepalidateconverter.net
-          </a>
+          <div className="flex gap-4">
+            <Link
+              href="/about"
+              className="text-gray-600 dark:text-gray-400 text-sm hover:text-[#8B5CF6] dark:hover:text-[#8B5CF6] transition-colors"
+            >
+              About
+            </Link>
+            <a
+              href="mailto:hello@nepalidateconverter.net"
+              className="text-gray-600 dark:text-gray-400 text-sm hover:text-[#8B5CF6] dark:hover:text-[#8B5CF6] transition-colors"
+            >
+              Contact
+            </a>
+          </div>
         </div>
       </div>
     </footer>

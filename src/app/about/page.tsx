@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { CodeIcon, GlobeIcon } from '@radix-ui/react-icons';
+import { CodeIcon, GlobeIcon, ClipboardIcon, ClockIcon } from '@radix-ui/react-icons';
 
 export const metadata: Metadata = {
   title: 'Nepali Date Converter - Convert BS to AD | About Us',
@@ -13,7 +13,9 @@ export default function AboutPage() {
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
           About <span className="text-primary">Nepali Date Converter</span>
         </h1>
-        <p className="text-2xl max-w-2xl mx-auto text-gray-600 dark:text-gray-400">Bridging dates across cultures</p>
+        <p className="text-2xl max-w-2xl mx-auto text-gray-600 dark:text-gray-400">
+          Convert Nepali to English date and vice-versa
+        </p>
       </div>
 
       {/* Our Story Section */}
@@ -53,6 +55,24 @@ export default function AboutPage() {
             <p className="text-gray-600 dark:text-gray-400">
               Clean, intuitive interface with responsive layout that works on all devices
             </p>
+          </div>
+
+          <div className="border p-6 rounded-lg">
+            <div className="flex items-center mb-4">
+              <ClipboardIcon className="h-5 w-5 text-primary mr-3" />
+              <h3 className="text-xl font-semibold">Easy Copy</h3>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400">
+              Copy converted dates to clipboard with a single click for quick use
+            </p>
+          </div>
+
+          <div className="border p-6 rounded-lg">
+            <div className="flex items-center mb-4">
+              <ClockIcon className="h-5 w-5 text-primary mr-3" />
+              <h3 className="text-xl font-semibold">Conversion History</h3>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400">View your recent date conversions for quick reference</p>
           </div>
         </div>
       </section>
