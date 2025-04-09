@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nepali Date Converter',
+    title: 'Nepali Date Converter - Covert BS to AD',
     description: 'Convert dates between Nepali (BS) and English (AD) calendars',
   },
 };
